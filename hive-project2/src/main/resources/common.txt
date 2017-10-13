@@ -1,0 +1,52 @@
+1、启动命令
+hive
+2、创建数据库
+create database hive2;
+3、查看Hive中所包含的数据库
+show databases;
+4、查看数据库信息
+describe database hive2;
+5、设置用户当前工作数据库
+use hive2;
+6、设置在提示符里面显示当前所在的数据库
+set hive.cli.print.current.db=true;
+7、复制usr表的表模式
+alter table user3 rename to usr4;
+8、查看表结构信息
+describe extended hive.usr4;
+9、修改表名称
+alter table usr4 rename to usr5;
+10、增加分区
+   alter table usr5 add if not exists
+        partition(city='beijing',state='China')
+        location '/user/hive/warehouse/hive.db/usr3 /China/beijing';
+11、修改表的分区
+alter table usr3 partition(city='beijing',state='China')
+12、修改列信息
+alter table usr3 change column pwd password string after name;
+13、增加列
+alter table usr add columns(hobby string);
+14、删除所有列并替换新列
+alter table usr replace columns(uname string);
+15、修改表描述信息
+alter table usr set tblproperties('creator'='liming');
+16、删除表
+drop table if exists usr1;
+17、hive不允许用户删除一个包含有表的数据库，加上关键字cascade，这样可以使hive自行先删除数据库中的表
+drop database if exists hive cascade;
+19、清空表数据
+truncate table  x
+20、判断sql扫描了哪些分区
+Explain dependency sql.......
+21、显示表的创建语句
+ show create table usr_chain
+22、创建自定义函数
+add jar /export/servers/data/hive-project2-1.0-SNAPSHOT.jar;
+create temporary function xingandxiao as 'udf.UDFZodiacAndConstellation';
+23、查询hive所有函数
+show functions;
+24、查询具体函数信息
+desc function to_date;.
+describe function extended  to_date;
+
+

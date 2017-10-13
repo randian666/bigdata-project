@@ -1,0 +1,19 @@
+#启动关闭hdfs
+./sbin/start-dfs.sh  #start-dfs.sh是个完整的可执行文件，中间没有空格
+./sbin/stop-dfs.sh   # 关闭
+
+./bin/hdfs dfs -cat output/*  #查看的是位于 HDFS 中的输出结果
+
+#启动yarn
+./sbin/start-yarn.sh      # 启动YARN
+./sbin/mr-jobhistory-daemon.sh start historyserver  # 开启历史服务器，才能在Web中查看任务运行情况
+
+#停止yarn
+./sbin/stop-yarn.sh
+./sbin/mr-jobhistory-daemon.sh stop historyserver
+
+#启动 YARN 是可以通过 Web 界面查看任务的运行情况
+http://192.168.38.135:8088/cluster
+
+#查看 NameNode 和 Datanode 信息，还可以在线查看 HDFS 中的文件
+http://192.168.38.135:50070/explorer.html#/
