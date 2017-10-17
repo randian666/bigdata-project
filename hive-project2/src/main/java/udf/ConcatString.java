@@ -9,6 +9,7 @@ import org.apache.hadoop.io.Text;
  *  对于每行输入都会调用到evaluate函数。而evaluate()处理后的值会返回给Hive。
  *  同时用户是可以重载evaluate方法的。hive会像java的方法重载一样，自动选择匹配的方法。
  * Created by liuxun on 2017/8/15.
+ * @author liuxun
  */
 public class ConcatString extends UDF{
 

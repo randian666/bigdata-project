@@ -20,6 +20,7 @@ import java.io.IOException;
  * Created by liuxun on 2017/7/19.
  */
 public class MaxTemperature{
+    private final char SYMBOL_ADD='+';
     /**
      * 查找最高气温的Mapper
      * Mapper是一个泛型类型，它有四个参数类型，分别指定map函数的输入键、输入值、输出键和输出值的类型。
@@ -29,11 +30,12 @@ public class MaxTemperature{
      * IntWritable 类型相当于Java中的Integer类型
      */
     public static class MaxTemperatureMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+        @Override
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
                 String line=value.toString();
                 String year=line.substring(15,19);
                 int airTemperature;
-                if (line.charAt(87)=='+'){
+                if (line.charAt(87)==SYMBOL_ADD){
                     airTemperature=Integer.parseInt(line.substring(88,92));//获取气温
                 }else{
                     airTemperature=Integer.parseInt(line.substring(87,92));//获取气温
@@ -47,7 +49,7 @@ public class MaxTemperature{
     }
     /**
      * 查找最高气温的Reducer
-     * Mapper是一个泛型类型，它有四个参数类型用于指定输入、输出类型。reduce函数的输入类型必须匹配map函数的输出类型
+     * Mapper是一个泛型类型，它有四个参数类型用于指定输入、输出   类型。reduce函数的输入类型必须匹配map函数的输出类型
      */
     public static class MaxTemperatureReducer extends Reducer<Text,IntWritable,Text,IntWritable>{
         @Override

@@ -4,13 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.apache.log4j.Logger;
 /**
  * jdbc连接Hive
  * Created by liuxun on 2017/8/14.
  */
 public class HiveService {
-    static Logger logger = Logger.getLogger(HiveService.class);
     //hive的jdbc驱动类
     public static String dirverName = "org.apache.hive.jdbc.HiveDriver";
     //连接hive的URL hive1.2.1版本需要的是jdbc:hive2，而不是 jdbc:hive
@@ -46,9 +44,9 @@ public class HiveService {
      * @throws SQLException
      */
     public static Statement getStmt(Connection conn) throws SQLException{
-        logger.debug(conn);
+        System.out.println(conn);
         if(conn == null){
-            logger.debug("this conn is null");
+            System.out.println("this conn is null");
         }
         return conn.createStatement();
     }
