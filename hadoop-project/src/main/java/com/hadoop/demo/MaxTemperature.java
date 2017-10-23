@@ -20,7 +20,6 @@ import java.io.IOException;
  * Created by liuxun on 2017/7/19.
  */
 public class MaxTemperature{
-    private final char SYMBOL_ADD='+';
     /**
      * 查找最高气温的Mapper
      * Mapper是一个泛型类型，它有四个参数类型，分别指定map函数的输入键、输入值、输出键和输出值的类型。
@@ -35,7 +34,7 @@ public class MaxTemperature{
                 String line=value.toString();
                 String year=line.substring(15,19);
                 int airTemperature;
-                if (line.charAt(87)==SYMBOL_ADD){
+                if (line.charAt(87)=='+'){
                     airTemperature=Integer.parseInt(line.substring(88,92));//获取气温
                 }else{
                     airTemperature=Integer.parseInt(line.substring(87,92));//获取气温

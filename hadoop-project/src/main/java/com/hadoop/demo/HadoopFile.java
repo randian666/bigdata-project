@@ -22,10 +22,10 @@ public class HadoopFile {
 
     public static void main(String[] args) {
         HadoopFile hadoopFile=new HadoopFile();
-//        hadoopFile.downloadFile("/user/hadoop/h1/count.txt","D:\\");
+        hadoopFile.downloadFile("/export/servers/data/usercount.txt","D:\\");
 //        hadoopFile.delFile("/user/hadoop/input/job.txt");
-        hadoopFile.sendFile("/user/hadoop/input","E:\\hadoopdata\\job.txt");
-        hadoopFile.sendFile("/user/hadoop/input","E:\\hadoopdata\\user.txt");
+//        hadoopFile.sendFile("/user/hadoop/input","E:\\hadoopdata\\job.txt");
+//        hadoopFile.sendFile("/user/hadoop/input","E:\\hadoopdata\\user.txt");
     }
     public boolean sendFile(String path,String localfile){
         File file=new File(localfile);

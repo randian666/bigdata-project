@@ -27,7 +27,7 @@ public class HadoopDemo {
             conf.set("fs.hdfs.impl","org.apache.hadoop.hdfs.DistributedFileSystem");
             FileSystem fs = FileSystem.get(conf);
             byte[] buff = "Hello world My Name is LiuXun".getBytes(); // 要写入的内容
-            String filename = "test"; //要写入的文件名
+            String filename = "count.txt"; //要写入的文件名
             FSDataOutputStream os = fs.create(new Path(filename));
             os.write(buff,0,buff.length);
             System.out.println("Create:"+ filename);
