@@ -16,12 +16,13 @@ import java.util.List;
 /**
  * @author liuxun
  * @version V1.0
- * @Description: spack单词计数器
+ * @Description: 分布式spack单词计数器
  * @date 2017/10/23
  */
 public class WordCount {
 
     public static void main(String[] args) {
+        //bin/spark-submit --class "com.spark.demo.WordCount" /export/servers/data/spark-project-1.0-SNAPSHOT.jar "/user/hadoop/input/user.txt" "/export/servers/data/usercount.txt"
         String inputpath="";
         String outpath="";
         if (args != null && args.length >= 2) {
