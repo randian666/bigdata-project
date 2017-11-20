@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author liuxun
  * @version V1.0
- * @Description: 分布式spack单词计数器
+ * @Description: 分布式spack单词计数器 键值RDD
  * @date 2017/10/23
  */
 public class WordCount {
@@ -53,7 +53,7 @@ public class WordCount {
             public Integer call(Integer integer, Integer integer2) throws Exception {
                 return integer + integer2;
             }
-        });
+        },10);//第二个参数是自定义并行度指定分区数
         //输入结果存储在hdfs上
         counts.saveAsTextFile(outpath);
     }
