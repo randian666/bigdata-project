@@ -12,6 +12,7 @@
         <module>hadoop-project</module>
         <module>hive-project2</module>
         <module>spark-project</module>
+        <module>storm-project</module>
     </modules>
 
 
