@@ -23,8 +23,8 @@ public class TopologyCountTest {
         builder.setBolt("CountWordBolt",new CountWordBolt(),2).fieldsGrouping("SplitLineBolt",new Fields("word"));
         builder.setBolt("ReportWordBolt",new ReportWordBolt(),2).globalGrouping("CountWordBolt");
         Config config=new Config();
-        config.setDebug(false);
-        config.setNumWorkers(1);
+        config.setDebug(false);//关闭调试模式，本地环境可以打开。
+        config.setNumWorkers(1);//分配工作进程
         //自定义输入模式1、输出完整的数据2、随机输出
         config.put("type","1");
         LocalCluster localCluster=new LocalCluster();
