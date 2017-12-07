@@ -1,9 +1,9 @@
 package com.demo.storm;
 
-import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
+import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseRichBolt;
+import backtype.storm.topology.base.BaseBasicBolt;
 import backtype.storm.tuple.Tuple;
 
 import java.util.Map;
@@ -14,13 +14,14 @@ import java.util.Map;
  * @Description: 单词计数结果
  * @date 2017/11/27
  */
-public class ReportWordBolt extends BaseRichBolt {
-    private OutputCollector outputCollector;
-    public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
-        this.outputCollector=outputCollector;
+public class ReportWordBolt extends BaseBasicBolt {
+
+    @Override
+    public void prepare(Map stormConf, TopologyContext context) {
+        super.prepare(stormConf, context);
     }
 
-    public void execute(Tuple tuple) {
+    public void execute(Tuple tuple, BasicOutputCollector basicOutputCollector) {
         String word = tuple.getStringByField("word");
         Integer count = tuple.getIntegerByField("count");
         System.out.printf("%s\t%d\n", word, count);

@@ -78,7 +78,7 @@ public class ReadLineSpout extends BaseRichSpout{
         }
 
         for(String line : lines){
-            this.collector.emit(new Values(line));
+            this.collector.emit(new Values(line),System.currentTimeMillis());
         }
         finished = true;
     }
@@ -92,6 +92,17 @@ public class ReadLineSpout extends BaseRichSpout{
         id = id < 0? -id : id;
         id = id % arrayList.size();
         this.collector.emit(new Values(arrayList.get(id)));
+    }
+    @Override
+    public void fail(Object msgId) {
+        System.out.println("fail message {} "+msgId);
+        super.fail(msgId);
+    }
+
+    @Override
+    public void ack(Object msgId) {
+        System.out.println("ack message {} "+msgId);
+        super.ack(msgId);
     }
 }
 

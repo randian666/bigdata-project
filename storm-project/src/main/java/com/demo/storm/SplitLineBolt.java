@@ -1,9 +1,9 @@
 package com.demo.storm;
 
-import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
+import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseRichBolt;
+import backtype.storm.topology.base.BaseBasicBolt;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
@@ -17,8 +17,7 @@ import java.util.Map;
  * @Description: 对文本行进行分割SplitLineBolt
  * @date 2017/11/27
  */
-public class SplitLineBolt extends BaseRichBolt {
-    private OutputCollector outputCollector;
+public class SplitLineBolt extends BaseBasicBolt {
 
     /**
      * 初始化函数，相当于spout中的open
@@ -26,15 +25,17 @@ public class SplitLineBolt extends BaseRichBolt {
      * @param topologyContext
      * @param outputCollector
      */
-    public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
-        this.outputCollector=outputCollector;
+    @Override
+    public void prepare(Map stormConf, TopologyContext context) {
+        super.prepare(stormConf, context);
     }
+
     /**
      * 这个函数也会被不断执行，但它的数据来自于上游。
      * 这里将文本行分割为单词，并发送
      * @param tuple
      */
-    public void execute(Tuple tuple) {
+    public void execute(Tuple tuple, BasicOutputCollector basicOutputCollector) {
         String line = tuple.getStringByField("line");
         String[] words = line.split(" ");
         for (String word:words){
@@ -42,7 +43,7 @@ public class SplitLineBolt extends BaseRichBolt {
             if (StringUtils.isBlank(word)){
                 continue;
             }
-            this.outputCollector.emit(new Values(word));
+            basicOutputCollector.emit(new Values(word));
         }
     }
     /**
@@ -52,4 +53,6 @@ public class SplitLineBolt extends BaseRichBolt {
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
         outputFieldsDeclarer.declare(new Fields("word"));
     }
+
+
 }
