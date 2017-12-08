@@ -24,7 +24,8 @@ public class LogReader extends BaseRichSpout {
     private int count=100;
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("time","user","url"));
+        outputFieldsDeclarer.declareStream("log",new Fields("time","user","url"));
+        outputFieldsDeclarer.declareStream("stop",new Fields("flag"));
     }
 
     @Override
@@ -35,7 +36,11 @@ public class LogReader extends BaseRichSpout {
     @Override
     public void nextTuple() {
         while (count-- >0){
-            spoutOutputCollector.emit(new Values(System.currentTimeMillis(),users[random.nextInt(3)],urls[random.nextInt(3)]));
+            if (count==0){
+                spoutOutputCollector.emit("stop",new Values("stop"));
+            }else{
+                spoutOutputCollector.emit("log",new Values(System.currentTimeMillis(),users[random.nextInt(3)],urls[random.nextInt(3)]));
+            }
         }
     }
 

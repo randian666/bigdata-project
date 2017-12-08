@@ -16,7 +16,7 @@ public class LogWrite extends BaseBasicBolt {
     public void execute(Tuple tuple, BasicOutputCollector basicOutputCollector) {
         String user = tuple.getStringByField("user");
         Integer pv=tuple.getIntegerByField("pv");
-        System.out.println(String.format("%s:%d",user,pv));
+        System.out.println(String.format("************************************%s:%d",user,pv));
     }
 
     @Override

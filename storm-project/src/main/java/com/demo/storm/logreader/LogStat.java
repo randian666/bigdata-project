@@ -9,6 +9,7 @@ import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -26,16 +27,27 @@ public class LogStat extends BaseBasicBolt{
 
     @Override
     public void execute(Tuple tuple, BasicOutputCollector basicOutputCollector) {
-        String usr=tuple.getStringByField("user");
-        if (pvMap.containsKey(usr)){
-            pvMap.put(usr,pvMap.get(usr)+1);
-        }else {
-            pvMap.put(usr,1);
+        String streamId=tuple.getSourceStreamId();
+//        System.out.println("***********streamId="+streamId);
+        if ("log".equals(streamId)){
+            String usr=tuple.getStringByField("user");
+            if (pvMap.containsKey(usr)){
+                pvMap.put(usr,pvMap.get(usr)+1);
+            }else {
+                pvMap.put(usr,1);
+            }
         }
-        //输入用户跟pv数
-        basicOutputCollector.emit(new Values(usr,pvMap.get(usr)));
-    }
+        if ("stop".equals(streamId)){//如果日志读取完毕就一起发送
+            Iterator<Map.Entry<String, Integer>> it = pvMap.entrySet().iterator();
+            while (it.hasNext()){
+                Map.Entry<String, Integer> entry = it.next();
+//                System.out.println("***********entry="+entry.getKey()+entry.getValue());
+                //输入用户跟pv数
+                basicOutputCollector.emit(new Values(entry.getKey(),entry.getValue()));
+            }
+        }
 
+    }
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
         outputFieldsDeclarer.declare(new Fields("user","pv"));

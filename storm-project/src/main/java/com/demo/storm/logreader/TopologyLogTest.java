@@ -19,7 +19,9 @@ public class TopologyLogTest {
         // 组建拓扑，并使用流分组
         TopologyBuilder builder=new TopologyBuilder();
         builder.setSpout("LogReader",new LogReader(),1);
-        builder.setBolt("LogStat",new LogStat(),2).fieldsGrouping("LogReader",new Fields("user"));
+        builder.setBolt("LogStat",new LogStat(),2)
+                .fieldsGrouping("LogReader","log",new Fields("user"))
+                .allGrouping("LogReader","stop");
         builder.setBolt("LogWrite",new LogWrite(),1).shuffleGrouping("LogStat");
         Config config=new Config();
         config.setDebug(false);//关闭调试模式，本地环境可以打开。
