@@ -11,6 +11,7 @@ import backtype.storm.tuple.Fields;
  * @author liuxun
  * @version V1.0
  * @Description: storm分析用户日志，统计pv
+ * storm jar /home/hadoop/Downloads/storm-project-1.0-SNAPSHOT.jar "com.demo.storm.logreader.TopologyLogTest"
  * @date 2017/12/8
  */
 public class TopologyLogTest {
