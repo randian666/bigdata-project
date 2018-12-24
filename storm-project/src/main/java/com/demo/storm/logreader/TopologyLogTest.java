@@ -1,6 +1,7 @@
 package com.demo.storm.logreader;
 
 import backtype.storm.Config;
+import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
@@ -26,6 +27,8 @@ public class TopologyLogTest {
         Config config=new Config();
         config.setDebug(false);//关闭调试模式，本地环境可以打开。
         config.setNumWorkers(1);//分配工作进程
-        StormSubmitter.submitTopology("TopologyLogTest",config,builder.createTopology());
+        //本地模式
+        LocalCluster localCluster=new LocalCluster();
+        localCluster.submitTopology("TopologyLogTest",config,builder.createTopology());
     }
 }
