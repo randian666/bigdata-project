@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
+ * Spark Streaming运行示例
  * @author liuxun
  * @version V1.0
  * @Description: Spark Streaming
