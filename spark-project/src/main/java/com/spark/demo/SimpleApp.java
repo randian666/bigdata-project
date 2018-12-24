@@ -9,9 +9,11 @@ import org.apache.spark.api.java.function.Function;
 public class SimpleApp {
     public static void main(String[] args) {
         //bin/spark-submit --class "com.spark.demo.SimpleApp" /export/servers/data/spark-project-1.0-SNAPSHOT.jar 2>&1 | grep "Lines with a"
-        String logFile = "file:///export/servers/spark/README.md"; // Should be some file on your system
+        String logFile = "/Users/liuxun/gitwork/bigdata-project/spark-project/src/main/resources/abc.txt"; // Should be some file on your system
+        //本地运行
         SparkConf conf=new SparkConf().setMaster("local").setAppName("Simple App");
         JavaSparkContext sc = new JavaSparkContext(conf);
+        //线上运行
 //        JavaSparkContext sc = new JavaSparkContext("local", "Simple App",
 //                "file:///export/servers/spark/", new String[]{"target/spark-project-1.0-SNAPSHOT.jar"});
         JavaRDD<String> logData = sc.textFile(logFile).cache();

@@ -18,7 +18,7 @@ import java.util.Arrays;
  */
 public class RddTest {
     public static void main(String[] args) {
-        //创建spark context
+        //创建本地环境spark context
         SparkConf conf=new SparkConf().setMaster("local").setAppName("RddTest");
         JavaSparkContext sc=new JavaSparkContext(conf);
         /**

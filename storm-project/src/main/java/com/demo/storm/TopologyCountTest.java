@@ -33,8 +33,8 @@ public class TopologyCountTest {
         localCluster.submitTopology("TopologyCountTest",config,builder.createTopology());
         // 休眠4秒，Utils.sleep不会抛出受干扰异常，尤其在Spout休眠时，集群突然shutdown
         Utils.sleep(4000);
-        localCluster.killTopology("TopologyCountTest");
+//        localCluster.killTopology("TopologyCountTest");
         //手动关闭本地集群
-        localCluster.shutdown();
+//        localCluster.shutdown();
     }
 }
