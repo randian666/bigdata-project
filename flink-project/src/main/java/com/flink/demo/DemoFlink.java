@@ -23,7 +23,7 @@ public class DemoFlink {
                     public boolean filter(String value) {
                         return value.contains("info");
                     }
-                })
+                }).setParallelism(2)
                 .writeAsText("/Users/liuxun/Documents/result");
         try {
             JobExecutionResult res = env.execute();

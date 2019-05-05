@@ -8,6 +8,7 @@ import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
+import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
@@ -89,19 +90,8 @@ public class DemoScoketFlink {
 //                    }
 //                });
         //数据存储
-        dataStream.addSink(new RichSinkFunction<Tuple2<String, Integer>>() {
-            @Override
-            public void invoke(Tuple2<String, Integer> value, Context context) throws Exception {
-                System.out.println("sink result1 is "+JSON.toJSON(value));
-            }
-        }).name("sink result1");
-        dataStream.addSink(new RichSinkFunction<Tuple2<String, Integer>>() {
-            @Override
-            public void invoke(Tuple2<String, Integer> value, Context context) throws Exception {
-                System.out.println("sink result2 is "+JSON.toJSON(value));
-            }
-        })
-        .name("sink result2");
+//        dataStream.addSink(new CsvSink("sink1")).setParallelism(1).name("sink result1");
+        dataStream.addSink(new CsvSink("sink2")).setParallelism(1).name("sink result2");
         dataStream.print();
         System.out.println(env.getExecutionPlan());
         //Flink程序是延迟计算。只有执行了execute才真正触发执行。
