@@ -49,7 +49,7 @@ public class DemoScoketFlink {
                     public boolean filter(String s) throws Exception {
                         return StringUtils.isNotBlank(s);
                     }
-                }).setParallelism(1)
+                })
                 .flatMap(new FlatMapFunction<String, Tuple2<String,Integer>>() {
                     @Override
                     public void flatMap(String s, Collector<Tuple2<String,Integer>> collector) throws Exception {
